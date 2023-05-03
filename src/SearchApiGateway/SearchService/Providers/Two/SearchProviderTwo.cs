@@ -12,6 +12,10 @@ namespace SearchService.Providers.Two
         {
             return new ProviderTwoSearchRequest
             {
+                Departure = x.Origin,
+                Arrival = x.Destination,
+                DepartureDate = x.OriginDateTime,
+                MinTimeLimit = x.Filters?.MinTimeLimit
             };
         };
 
@@ -19,7 +23,15 @@ namespace SearchService.Providers.Two
         {
             return new SearchResponse
             {
-                //todo add logic
+                Routes = x?.Routes.Select(y => new Route
+                {
+                    Origin = y.Departure.Point,
+                    Destination = y.Arrival.Point,
+                    OriginDateTime = y.Departure.Date,
+                    DestinationDateTime = y.Departure.Date,
+                    Price = y.Price,
+                    TimeLimit = y.TimeLimit
+                }).ToArray()
             };
         };
     }

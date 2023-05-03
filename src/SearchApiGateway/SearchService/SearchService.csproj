@@ -10,10 +10,15 @@
     <None Remove="Search\" />
     <None Remove="Providers\" />
     <None Remove="Providers\Two\" />
+    <None Remove="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Search\" />
     <Folder Include="Providers\" />
     <Folder Include="Providers\Two\" />
+    <Folder Include="Filters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 </Project>

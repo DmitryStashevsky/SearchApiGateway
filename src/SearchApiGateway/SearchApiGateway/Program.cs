@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Versioning;
 
+using SearchService;
+
 namespace SearchApiGateway
 {
     public class Program
@@ -19,6 +21,9 @@ namespace SearchApiGateway
                                                                 new HeaderApiVersionReader("x-api-version"),
                                                                 new MediaTypeApiVersionReader("x-api-version"));
             });
+
+            builder.Services.AddSearchServiceDI();
+            builder.Services.AddHttpClient();
 
             builder.Services.AddVersionedApiExplorer(setup =>
             {

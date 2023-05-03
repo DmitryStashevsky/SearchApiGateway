@@ -4,12 +4,8 @@ namespace SearchService.Providers.One
 {
     internal class SearchProviderOne : SearchProvider<ProviderOneSearchRequest, ProviderOneSearchResponse>
 	{
-        public SearchProviderOne(
-            HttpClient httpClient,
-            string rootUrl,
-            string pingUrl,
-            string searchUrl)
-            : base(httpClient, rootUrl, pingUrl, searchUrl)
+        public SearchProviderOne(HttpClient httpClient, ServiceProviderOneSettings settings)
+            : base(httpClient, settings.RootUrl, settings.PingUrl, settings.SearchUrl)
         { }
 
         protected override Func<SearchRequest, ProviderOneSearchRequest> MapSearchRequest => x =>
@@ -28,7 +24,7 @@ namespace SearchService.Providers.One
         {
             return new SearchResponse
             {
-                Routes = x.Routes.Select(y => new Route
+                Routes = x.Routes?.Select(y => new Route
                 {
                     Origin = y.From,
                     Destination = y.To,

@@ -1,5 +1,4 @@
-﻿using System;
-namespace SearchService.Search
+﻿namespace SearchService.Search
 {
 	public class Route
 	{

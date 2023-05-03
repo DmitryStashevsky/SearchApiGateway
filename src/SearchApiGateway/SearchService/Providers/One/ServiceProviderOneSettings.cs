@@ -1,4 +1,4 @@
-﻿amespace SearchService.Providers.One
+﻿namespace SearchService.Providers.One
 {
 	public class ServiceProviderOneSettings : SearchProviderSettings
     {
