@@ -24,21 +24,45 @@ namespace SearchService.Providers
 
         public async Task<bool> IsAvailableAsync(CancellationToken cancellationToken)
         {
-            var response = await _httpClient.GetAsync(_pingUrl, cancellationToken);
+            HttpResponseMessage response = null;
+
+            await ApiCall(async () =>
+            {
+                var response = await _httpClient.GetAsync(_pingUrl, cancellationToken);       
+            });
+
             return response.IsSuccessStatusCode;
         }
 
         public async Task<SearchResponse> SearchAsync(SearchRequest request, CancellationToken cancellationToken)
         {
-            var searchRequest = MapSearchRequest(request);
-            var content = JsonContent.Create(searchRequest);
-            var response = await _httpClient.PostAsync(_searchUrl, content, cancellationToken);
-            var result = await response.Content.ReadFromJsonAsync<Response>();
+            Response? result = default(Response);
+
+            await ApiCall(async () =>
+            {
+                var searchRequest = MapSearchRequest(request);
+                var content = JsonContent.Create(searchRequest);
+                var response = await _httpClient.PostAsync(_searchUrl, content, cancellationToken);
+                result = await response.Content.ReadFromJsonAsync<Response>();
+            });
+          
             return MapSearchResponse(result);
         }
 
         protected abstract Func<SearchRequest, Search> MapSearchRequest { get; }
         protected abstract Func<Response, SearchResponse> MapSearchResponse { get; }
+
+        private static async Task ApiCall(Func<Task> apiCall)
+        {
+            try
+            {
+                await apiCall();
+            }
+            catch (TimeoutException e)
+            {
+
+            }
+        }
     }
 }
 

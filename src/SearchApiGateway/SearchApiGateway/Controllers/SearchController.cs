@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using SearchApiGateway.Requests;
+using SearchApiGateway.Services;
+using SearchService.Search;
 
 namespace SearchApiGateway.Controllers
 {
@@ -7,17 +11,24 @@ namespace SearchApiGateway.Controllers
     [ApiVersion("1.0")]
     public class SearchController : ControllerBase
     {
-        private readonly ILogger<SearchController> _logger;
+        private readonly ISearchServiceGateway _searchServiceGateway;
 
-        public SearchController(ILogger<SearchController> logger)
+        public SearchController(ISearchServiceGateway searchServiceGateway)
         {
-            _logger = logger;
+            _searchServiceGateway = searchServiceGateway;
         }
 
+        /// <summary>
+        /// Search route
+        /// </summary>
+        /// <param name="searchRequest"><seealso cref="ApiSearchRequest"/></param>
+        /// <param name="token"></param>
+        /// <returns><seealso cref="SearchResponse"/></returns>
         [HttpPost]
-        public Task Post()
+        [ProducesResponseType(typeof(SearchResponse), (int)HttpStatusCode.OK)]
+        public async Task<SearchResponse> Post([FromBody] ApiSearchRequest searchRequest, CancellationToken token)
         {
-            return Task.CompletedTask;
+            return await _searchServiceGateway.SearchAsync(searchRequest.ToDto(), token);
         }
     }
 }

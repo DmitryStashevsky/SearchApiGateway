@@ -2,11 +2,11 @@
 {
 	internal class SearchProviderFactory : ISearchProviderFactory
 	{
-        private readonly ISearchProvider[] _searchProviders;
+        private readonly IEnumerable<ISearchProvider> _searchProviders;
 
-        public int ProvidersCount => _searchProviders.Length;
+        public int ProvidersCount => _searchProviders.Count();
 
-        public SearchProviderFactory(ISearchProvider[] searchProviders)
+        public SearchProviderFactory(IEnumerable<ISearchProvider> searchProviders)
 		{
             _searchProviders = searchProviders;
         }

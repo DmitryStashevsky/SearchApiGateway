@@ -4,7 +4,7 @@ namespace SearchService.Providers.Two
 {
     internal class SearchProviderTwo : SearchProvider<ProviderTwoSearchRequest, ProviderTwoSearchResponse>
     {
-        public SearchProviderTwo(HttpClient httpClient, ServiceProviderTwoSettings settings)
+        public SearchProviderTwo(HttpClient httpClient, SearchProviderTwoSettings settings)
             : base(httpClient, settings.RootUrl, settings.PingUrl, settings.SearchUrl)
         { }
 

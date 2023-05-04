@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Versioning;
-
+using SearchApiGateway.Configuration;
 using SearchService;
+using SearchService.Providers.One;
+using SearchService.Providers.Two;
 
 namespace SearchApiGateway
 {
@@ -23,6 +25,13 @@ namespace SearchApiGateway
             });
 
             builder.Services.AddSearchServiceDI();
+
+            builder.Services.Configure<SearchProviderOneSettingsOption>(builder.Configuration.GetSection(SearchProviderOneSettingsOption.SectionName));
+            builder.Services.Configure<SearchProviderTwoSettingsOption>(builder.Configuration.GetSection(SearchProviderTwoSettingsOption.SectionName));
+
+            builder.Services.AddSingleton<SearchProviderOneSettings, SearchProviderOneSettingsOption>();
+            builder.Services.AddSingleton<SearchProviderTwoSettings, SearchProviderTwoSettingsOption>();
+
             builder.Services.AddHttpClient();
 
             builder.Services.AddVersionedApiExplorer(setup =>
