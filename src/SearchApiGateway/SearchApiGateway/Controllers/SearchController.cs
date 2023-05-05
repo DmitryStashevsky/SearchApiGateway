@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SearchApiGateway.Requests;
 using SearchApiGateway.Services;
@@ -25,9 +26,10 @@ namespace SearchApiGateway.Controllers
         /// <returns><seealso cref="SearchResponse"/></returns>
         [HttpPost]
         [ProducesResponseType(typeof(SearchResponse), (int)HttpStatusCode.OK)]
-        public async Task<SearchResponse> Post([FromBody] ApiSearchRequest searchRequest, CancellationToken token)
+        public async Task<Results<BadRequest, Ok<SearchResponse>>> Post([FromBody] ApiSearchRequest searchRequest, CancellationToken token)
         {
-            return await _searchServiceGateway.SearchAsync(searchRequest.ToDto(), token);
+            var result = await _searchServiceGateway.SearchAsync(searchRequest.ToDto(), token);
+            return TypedResults.Ok(result);
         }
     }
 }

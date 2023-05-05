@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using SearchApiGateway.Services;
 using SearchService.Search;
 
@@ -23,10 +24,10 @@ namespace SearchApiGateway.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<StatusCodeResult> Get(CancellationToken token)
+        public async Task<StatusCodeHttpResult> Get(CancellationToken token)
         {
             var isAvailable = await _searchServiceGateway.IsAvailableAsync(token);
-            return isAvailable ? StatusCode(200) : StatusCode(500);
+            return isAvailable ? TypedResults.StatusCode(StatusCodes.Status200OK) : TypedResults.StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

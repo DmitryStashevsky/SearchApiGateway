@@ -29,4 +29,3 @@ namespace SearchApiGateway.Services
         }
     }
 }
-

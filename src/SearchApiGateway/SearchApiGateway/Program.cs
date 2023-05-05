@@ -4,6 +4,7 @@ using SearchApiGateway.Configuration;
 using SearchService;
 using SearchService.Providers.One;
 using SearchService.Providers.Two;
+using SearchApiGateway.Middlewares;
 
 namespace SearchApiGateway
 {
@@ -63,11 +64,9 @@ namespace SearchApiGateway
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
             app.MapControllers();
-
+            app.UseExceptionMiddleware();
             app.Run();
         }
     }
