@@ -4,7 +4,7 @@ namespace SearchApiGateway.Services
 {
 	internal interface ICacheSearchService : ISearchService
 	{
-        void AddToCache(SearchService.Search.Route[] routes);
+        void AddToCache(SearchRequest searchRequest, SearchResponse searchResponse);
     }
 }
 

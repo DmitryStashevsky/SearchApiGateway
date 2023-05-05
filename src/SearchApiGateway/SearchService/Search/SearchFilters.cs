@@ -17,6 +17,19 @@
         // Optional
         // Forcibly search in cached data
         public bool? OnlyCached { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is SearchFilters filters &&
+                   DestinationDateTime == filters.DestinationDateTime &&
+                   MaxPrice == filters.MaxPrice &&
+                   MinTimeLimit == filters.MinTimeLimit;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(DestinationDateTime, MaxPrice, MinTimeLimit);
+        }
     }
 }
 

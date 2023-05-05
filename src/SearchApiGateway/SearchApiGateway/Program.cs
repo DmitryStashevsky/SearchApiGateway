@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.Extensions.Options;
 using SearchApiGateway.Configuration;
 using SearchService;
 using SearchService.Providers.One;
@@ -24,13 +25,24 @@ namespace SearchApiGateway
                                                                 new MediaTypeApiVersionReader("x-api-version"));
             });
 
+            builder.Services.AddMemoryCache();
             builder.Services.AddSearchServiceDI();
+            builder.Services.AddSearchServiceGatewayDI();
 
             builder.Services.Configure<SearchProviderOneSettingsOption>(builder.Configuration.GetSection(SearchProviderOneSettingsOption.SectionName));
             builder.Services.Configure<SearchProviderTwoSettingsOption>(builder.Configuration.GetSection(SearchProviderTwoSettingsOption.SectionName));
 
-            builder.Services.AddSingleton<SearchProviderOneSettings, SearchProviderOneSettingsOption>();
-            builder.Services.AddSingleton<SearchProviderTwoSettings, SearchProviderTwoSettingsOption>();
+            // Register providers settings
+            builder.Services.AddSingleton<SearchProviderOneSettings>(sp =>
+            {
+                var options = sp.GetService<IOptions<SearchProviderOneSettingsOption>>();
+                return options.Value;
+            });
+            builder.Services.AddSingleton<SearchProviderTwoSettings>(sp =>
+            {
+                var options = sp.GetService<IOptions<SearchProviderTwoSettingsOption>>();
+                return options.Value;
+            });
 
             builder.Services.AddHttpClient();
 

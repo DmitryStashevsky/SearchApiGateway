@@ -13,6 +13,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,10 +25,12 @@
     <None Remove="Services\" />
     <None Remove="Requests\" />
     <None Remove="Configuration\" />
+    <None Remove="Cache\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Requests\" />
     <Folder Include="Configuration\" />
+    <Folder Include="Cache\" />
   </ItemGroup>
 </Project>

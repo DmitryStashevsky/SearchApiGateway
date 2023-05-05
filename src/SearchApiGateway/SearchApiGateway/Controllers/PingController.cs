@@ -17,11 +17,9 @@ namespace SearchApiGateway.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Check availavility of search service
         /// </summary>
-        /// <param name="searchRequest"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+        /// <returns>Status codes 200 or 500</returns>
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]

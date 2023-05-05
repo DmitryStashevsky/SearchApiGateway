@@ -1,4 +1,5 @@
-﻿using SearchService.Search;
+﻿using SearchService.Providers.One;
+using SearchService.Search;
 
 namespace SearchService.Providers.Two
 {
@@ -25,10 +26,12 @@ namespace SearchService.Providers.Two
             {
                 Routes = x?.Routes.Select(y => new Route
                 {
+                    Id = GetGuid(y.Departure.Point, y.Arrival.Point, y.Departure.Date.ToString(), y.Arrival.Date.ToString(),
+                        y.Price.ToString(), y.TimeLimit.ToString(), nameof(SearchProviderTwo)),
                     Origin = y.Departure.Point,
                     Destination = y.Arrival.Point,
                     OriginDateTime = y.Departure.Date,
-                    DestinationDateTime = y.Departure.Date,
+                    DestinationDateTime = y.Arrival.Date,
                     Price = y.Price,
                     TimeLimit = y.TimeLimit
                 }).ToArray()

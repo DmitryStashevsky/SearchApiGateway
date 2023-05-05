@@ -27,7 +27,7 @@ namespace SearchApiGateway.Services
 
             var result = await _searchService.SearchAsync(request, cancellationToken);
 
-            _cacheSearchService.AddToCache(result.Routes);
+            _cacheSearchService.AddToCache(request, result);
 
             return result;
         }

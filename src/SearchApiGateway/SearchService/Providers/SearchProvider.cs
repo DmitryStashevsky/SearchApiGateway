@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using SearchService.Generators;
 using SearchService.Search;
 
 namespace SearchService.Providers
@@ -6,6 +7,7 @@ namespace SearchService.Providers
     public abstract class SearchProvider<Search, Response> : ISearchProvider
     {
         private readonly HttpClient _httpClient;
+        private readonly IGuidGenerator _guidGenerator;
         private readonly Uri _rootUrl;
         private readonly Uri _pingUrl;
         private readonly Uri _searchUrl;
@@ -47,6 +49,11 @@ namespace SearchService.Providers
             });
           
             return MapSearchResponse(result);
+        }
+
+        protected Guid GetGuid(params string[] args)
+        {
+            return _guidGenerator.Generate(args);
         }
 
         protected abstract Func<SearchRequest, Search> MapSearchRequest { get; }

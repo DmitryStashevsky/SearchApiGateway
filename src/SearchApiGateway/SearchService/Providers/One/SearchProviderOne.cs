@@ -26,6 +26,7 @@ namespace SearchService.Providers.One
             {
                 Routes = x.Routes?.Select(y => new Route
                 {
+                    Id = GetGuid(y.From, y.To, y.DateFrom.ToString(), y.DateTo.ToString(), y.Price.ToString(), y.TimeLimit.ToString(), nameof(SearchProviderOne)),
                     Origin = y.From,
                     Destination = y.To,
                     OriginDateTime = y.DateFrom,

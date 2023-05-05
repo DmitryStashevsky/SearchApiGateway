@@ -11,14 +11,17 @@
     <None Remove="Providers\" />
     <None Remove="Providers\Two\" />
     <None Remove="Filters\" />
+    <None Remove="Generators\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Search\" />
     <Folder Include="Providers\" />
     <Folder Include="Providers\Two\" />
     <Folder Include="Filters\" />
+    <Folder Include="Generators\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
   </ItemGroup>
 </Project>

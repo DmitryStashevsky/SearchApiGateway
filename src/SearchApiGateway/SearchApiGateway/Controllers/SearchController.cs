@@ -22,7 +22,6 @@ namespace SearchApiGateway.Controllers
         /// Search route
         /// </summary>
         /// <param name="searchRequest"><seealso cref="ApiSearchRequest"/></param>
-        /// <param name="token"></param>
         /// <returns><seealso cref="SearchResponse"/></returns>
         [HttpPost]
         [ProducesResponseType(typeof(SearchResponse), (int)HttpStatusCode.OK)]
